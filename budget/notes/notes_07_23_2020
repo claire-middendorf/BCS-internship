@@ -1,0 +1,233 @@
+07/23/2020
+
+-- Deep Dive on Initials Pattern (Count of Retail Stores in col2) (With Changes)
+
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+), 
+
+subset_case as
+(
+select 
+	case when col2 like '%OFFICE DEPO%' 
+		 or col2 like '%SAFEWAY%'
+		 or col2 like '%THE HOME DE%' 
+		 or col2 like '%FRED-MEYER%' 
+		 or col2 like '%SUPPLYWORKS%' 
+		 or col2 like '%COOKE STATI%'
+		 or col2 like '%LOWES%' 
+		 and not col2 like '%FELLOWES%'
+		 or col2 like '%TARGET%' 
+		 or col2 like '%OFFICEMAX%' 
+		 or col2 like '%WAL-MART%' 
+		 or col2 like '%WALGREENS%' 
+		 or col2 like '%HARBOR FREI%' 
+		 or col2 like '%WHOLEFDS%' 
+		 or col2 like '%COSTCO%' 
+		 or col2 like '%ROTHS%' 
+		 or col2 like '%TOTAL OFFIC%' 
+		 or col2 like '%TRADER JOE%'
+		 or col2 like '%RAPID REFIL%' 
+		 or col2 like '%FEDEXOFFICE%'
+		 or col2 like '%CAPITAL TRO%' 
+		 or col2 like '%MADE IN OR%' 
+		 or col2 like '%PARTY MART%' 
+		 or col2 like '%RITE AID%' 
+		 or col2 like '%JO-ANN%'
+		 or col2 like '%NEWEGG%'  
+		 or col2 like '%FROMUTH%' 
+		 or col2 like '%BEST BUY%' 
+		 or col2 like '%ALBERTSONS%'
+		 or col2 like '%CRAFT WAREH%' 
+		 or col2 like '%MICHAELS%' 
+		 or col2 like '%TOMS TROPHI%' 
+		 or col2 like '%FAST SIGNS%' 
+		 or col2 like '%KMART%' 
+		 or col2 like '%WM SUPERCEN%' 
+		 or col2 like '%RICKS%' 
+		 or col2 like '%HOMEDEPOT%' 
+		 or col2 like '%VALUE VILLA%' 
+		 or col2 like '%FOODLAND%' 
+		 and not col2 like transportation 
+		 and not col2 like commercialfoodservice
+		 then 'Retail Stores'
+		 else null end as retailstores  
+from subset_split 
+)
+select subset_case
+	, count(*) as row_count 
+from subset_case 
+where not retailstores is null
+group by subset_case  
+
+-- Deep Dive on Initials Pattern (Count of Retail Stores in col2) (With Changes)
+
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%OFFICE DEPO%' 
+		 or col2 like '%SAFEWAY%'
+		 or col2 like '%THE HOME DE%' 
+		 or col2 like '%FRED-MEYER%' 
+		 or col2 like '%SUPPLYWORKS%' 
+		 or col2 like '%COOKE STATI%'
+		 or col2 like '%LOWES%' 
+		 and not like '%FELLOWES%'
+		 or col2 like '%TARGET%' 
+		 or col2 like '%OFFICEMAX%' 
+		 or col2 like '%WAL-MART%' 
+		 or col2 like '%WALGREENS%' 
+		 or col2 like '%HARBOR FREI%' 
+		 or col2 like '%WHOLEFDS%' 
+		 or col2 like '%COSTCO%' 
+		 or col2 like '%ROTHS%' 
+		 or col2 like '%TOTAL OFFIC%' 
+		 or col2 like '%TRADER JOE%'
+		 or col2 like '%RAPID REFIL%' 
+		 or col2 like '%FEDEXOFFICE%'
+		 or col2 like '%CAPITAL TRO%' 
+		 or col2 like '%MADE IN OR%' 
+		 or col2 like '%PARTY MART%' 
+		 or col2 like '%RITE AID%' 
+		 or col2 like '%JO-ANN%'
+		 or col2 like '%NEWEGG%'  
+		 or col2 like '%FROMUTH%' 
+		 or col2 like '%BEST BUY%' 
+		 or col2 like '%ALBERTSONS%'
+		 or col2 like '%CRAFT WAREH%' 
+		 or col2 like '%MICHAELS%' 
+		 or col2 like '%TOMS TROPHI%' 
+		 or col2 like '%FAST SIGNS%' 
+		 or col2 like '%KMART%' 
+		 or col2 like '%WM SUPERCEN%' 
+		 or col2 like '%RICKS%' 
+		 or col2 like '%HOMEDEPOT%' 
+		 or col2 like '%VALUE VILLA%' 
+		 or col2 like '%FOODLAND%' 
+		 and not col2 like '%STARBUCKS%' 
+		and not col2 like '%PAPA JOHN%' 
+		and not col2 like'%SUBWAY%' 
+		and not col2 like '%TABLE FIVE%' 
+		and not col2 like '%BENTLEYS%' 
+		and not col2 like '%BISTRO%' 
+		and not col2 like '%LA MARGARIT%'  
+		and not col2 like '%MCDONALD%'  
+		and not col2 like '%PANERA%' 
+		and not col2 like '%AMADEUS%'  
+		and not col2 like '%THE SASSY%'
+		and not col2 like '%IN-N-OUT%'
+		and not col2 like '%THE KITCHEN%' 
+		and not col2 like '%ARCHIVE%' 
+		and not col2 like '%IKE BOX%' 
+		and not col2 like '%WILD PEAR%' 
+		and not col2 like '%PANDA EXPR%' 
+		and not col2 like '%JIMMY JOHNS%'  
+		and not col2 like '%PITA PIT%' 
+		and not col2 like '%MARCO POLO%' 
+		and not col2 like '%BROADWAY%'  
+		and not col2 like '%DOMINOS%' 
+		and not col2 like '%RED ROBIN%' 
+		and not col2 like '%OLIVE G%' 
+		and not col2 like '%TACO BELL%' 
+		and not col2 like '%THAI ORCHID%' 
+		and not col2 like '%DAYNIGHT%' 
+		and not col2 like '%FLYING ELEP%'
+		and not col2 like '%GILGIMESH%' 
+		and not col2 like '%SISTERS%'
+		and not col2 like '%BAJA FRESH%' 
+		and not col2 like '%BUFFALO WIL%' 
+		and not col2 like '%JACK IN THE%' 
+		and not col2 like '%COFFEE%' 
+		and not col2 like '%CALIFORNIA%' 
+		and not col2 like '%CHIPOTLE%' 
+		and not col2 like '%NOODLES%' 
+		and not col2 like '%PIZZA HUT%'  
+		and not col2 like '%CHICK-FIL-A%' 
+		and not col2 like '%JAMBA JUICE%' 
+		and not col2 like '%THEDAILYCAF%' 
+		and not col2 like '%TAPROOT%' 
+		and not col2 like '%CHRISTOS P%' 
+		and not col2 like '%ADAMS RIB%' 
+		and not col2 like '%BYARD HOUSE%'  
+		and not col2 like '%SUSHI%' 
+		and not col2 like '%APPLEBEES%'  
+		and not col2 like '%CAFE%' 
+		and not col2 like '%FUJI RICE%' 
+		and not col2 like '%RED LOBSTER%' 
+		and not col2 like '%CHEESE%' 
+		and not col2 like '%DONUT%' 
+		and not col2 like '%MCMENAMINS%' 
+		and not col2 like '%MCGRATH%' 
+		and not col2 like '%RAYS FOOD%' 
+		and not col2 like '%SEAFOOD%' 
+		and not col2 like '%UFOOD GRILL%'
+		and not col2 like '%DAIRY QUEEN%' 
+		and not col2 like '%HAWAIIAN%'  
+		and not col2 like '%ELMER%' 
+		and not col2 like '%CARLS JR%' 
+		and not col2 like '%PIAZZA%' 
+		and not col2 like '%PINT & JIGG%' 
+		and not col2 like '%MUCHAS GRAC%' 
+		and not col2 like '%BRIX TAVERN%' 
+		and not col2 like '%CAFFE%' 
+		and not col2 like '%QDOBA%' 
+		and not col2 like '%WAJI%' 
+		and not col2 like '%PIETROS%' 
+		and not col2 like '%DAVE & BUST%'  
+		and not col2 like '%MODMARKET%' 
+		and not col2 like '%DICKEY%' 
+		and not col2 like '%RESTAU%' 
+		and not col2 like '%LA TAPANADE%' 
+		and not col2 like '%OSWEGO GRIL%' 
+		and not col2 like '%NEW SEASONS%' 
+		and not col2 like '%BURGER%' 
+		and not col2 like '%DELI%' 
+		and not col2 like '%INDIA PALAC%' 
+		and not col2 like '%THAI BASIL%' 
+		and not col2 like '%MARGARITAVI%' 
+		and not col2 like '%PITA%' 
+		and not col2 like '%BOONS TREAS%' 
+		and not col2 like '%HOOTERS%' 
+		and not col2 like '%DAVINCI%' 
+		and not col2 like '%DUTCH%' 
+		and not col2 like '%THE GOV%' 
+		and not col2 like '%GAMBERETTIS%'
+		 then 'Retail Stores'
+		 else null end as retailstores 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not retailstores is null
+group by subset_case  
+
+
+
+
+

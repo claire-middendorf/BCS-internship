@@ -1,0 +1,23 @@
+/*
+-- Pattern 19- Inc
+select distinct descr
+from dev.budget_staging 
+where descr like '%Inc.%' 
+order by 1
+limit 500;   
+
+-- CREATE EXTENSION fuzzystrmatch;
+*/
+
+with test as
+(
+	select 'Ms. Kate E. Zurschmeide' as test_case
+)
+select distinct bs.descr
+	, test.test_case
+	, levenshtein(descr, test.test_case) as levenshtein_dis
+from dev.budget_staging as bs
+cross join test
+--where descr like '%Inc.%' 
+order by 3
+limit 100

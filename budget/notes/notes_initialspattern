@@ -1,0 +1,93 @@
+08/07/2020 
+
+--Initials Pattern (count of locations)
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+order by 1
+) 
+select distinct col2 
+	, count (*) as row_count
+from subset_split 
+group by col2 
+order by row_count 
+
+-- Deep Dive on Initials Pattern (Count of Networks, Communications, and Media in col2))
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%COMCAST%' 
+		 or col2 like '%THOMSON WES%' 
+		 or col2 like '%LIBRARY%'
+		 or col2 like '%SAFEWAY%'
+		 or col2 like '%THE HOME DE%' 
+		 or col2 like '%FRED-MEYER%' 
+		 or col2 like '%SUPPLYWORKS%' 
+		 or col2 like '%COOKE STATI%'
+		 or col2 like '%LOWES%' 
+		 and not col2 like '%FELLOWES%'
+		 or col2 like '%TARGET%' 
+		 or col2 like '%OFFICEMAX%' 
+		 or col2 like '%WAL-MART%' 
+		 or col2 like '%WALGREENS%' 
+		 or col2 like '%HARBOR FREI%' 
+		 or col2 like '%WHOLEFDS%' 
+		 or col2 like '%COSTCO%' 
+		 or col2 like '%ROTHS%' 
+		 or col2 like '%TOTAL OFFIC%' 
+		 or col2 like '%TRADER JOE%'
+		 or col2 like '%RAPID REFIL%' 
+		 or col2 like '%FEDEXOFFICE%'
+		 or col2 like '%CAPITAL TRO%' 
+		 or col2 like '%MADE IN OR%' 
+		 or col2 like '%PARTY MART%' 
+		 or col2 like '%RITE AID%' 
+		 or col2 like '%JO-ANN%'
+		 or col2 like '%NEWEGG%'  
+		 or col2 like '%FROMUTH%' 
+		 or col2 like '%BEST BUY%' 
+		 or col2 like '%ALBERTSONS%'
+		 or col2 like '%CRAFT WAREH%' 
+		 or col2 like '%MICHAELS%' 
+		 or col2 like '%TOMS TROPHI%' 
+		 or col2 like '%FAST SIGNS%' 
+		 or col2 like '%KMART%' 
+		 or col2 like '%WM SUPERCEN%' 
+		 or col2 like '%RICKS%' 
+		 or col2 like '%HOMEDEPOT%' 
+		 or col2 like '%VALUE VILLA%' 
+		 or col2 like '%FOODLAND%'
+		 then 'Network, Communication, and Media'
+		 else null end as networkandcommunications 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not networkandcommunications is null
+group by subset_case 

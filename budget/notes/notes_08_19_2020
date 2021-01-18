@@ -1,0 +1,581 @@
+08/19/2020 
+
+
+--Pattern 42- Experience Oregon Inc (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Experience Oregon Inc%'  then 'Experience Oregon Inc' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Experience Oregon Inc%'  
+group by case when descr similar to '%Experience Oregon Inc%'  then 'Experience Oregon Inc'
+	else null end
+order by row_count desc   
+
+--51 rows 
+
+--Pattern 43- Verizon Wireless (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Verizon Wireless%'  then 'Verizon Wireless' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Verizon Wireless%'  
+group by case when descr similar to '%Verizon Wireless%'  then 'Verizon Wireless'
+	else null end
+order by row_count desc   
+
+--118 rows 
+
+--Pattern 44- Motor Pool (count) 
+with subset as
+( 
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%' 
+		and descr not similar to '%Bon App%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%' 
+		and descr not similar to '%Inc%' 
+		and descr not similar to '%UPS%' 
+		and descr not similar to '%BRM%'
+)  
+select 
+	case when descr similar to '%Motor Pool%' 
+	or descr similar to '%Motorpool%' then 'Motor Pool'  
+	else null end as pattern_motorpool
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Motor Pool%' 
+	or descr similar to '%Motorpool%'  
+group by case when descr similar to '%Motor Pool%' 
+	or descr similar to '%Motorpool%' then 'Motor Pool' 
+	else null end
+order by row_count desc 
+
+--212 rows 
+
+--Pattern 45- Fees
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%fee%' 
+	and not descr similar to '%Coffee%'
+  
+--Pattern 45- Fees (count)
+with subset as
+( 
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%' 
+		and descr not similar to '%Bon App%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%' 
+		and descr not similar to '%Inc%' 
+		and descr not similar to '%UPS%' 
+		and descr not similar to '%BRM%'
+)  
+select 
+	case when descr similar to '%fee%' 
+	or descr similar to '%Fee%'
+	and not descr similar to '%Coffee%' then 'Fees'  
+	else null end as pattern_fees
+	, count(*) as row_count 
+from subset 
+where descr similar to '%fee%' 
+	or descr similar to '%Fee%'
+	and not descr similar to '%Coffee%'  
+group by case when descr similar to '%fee%' 
+	or descr similar to '%Fee%'
+	and not descr similar to '%Coffee%' then 'Fees'
+	else null end
+order by row_count desc 
+
+--547 rows 
+
+--leaves_initials
+
+-- Deep Dive on Initials Pattern (Count of Network in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%COMCAST CAB%' 
+		or col2 like '%THOMSON WES%' 
+		or col2 like '%DISH NETWOR%'
+		or col2 like '%GOOGLE *ADW%'
+		or col2 like '%BOOMERANG F%'
+		or col2 like '%MICROSOFT %'
+		or col2 like '%LINKEDIN.CO%'
+		or col2 like '%VZWRLSS*PRP%'
+		then 'Network'
+		else null end as network 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not network is null
+group by subset_case 
+
+
+-- Deep Dive on Initials Pattern (Count of Academic in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%OREGON STAT%' 
+		or col2 like '%HAR*HARVARD%'
+		or col2 like '%OETC TECHHE%'
+		or col2 like '%WEST ACADEM%'
+		or col2 like '%AAC AND U%'
+		or col2 like '%NAFSA ASSOC%'
+		or col2 like '%FAIRMONT NE%'
+		or col2 like '%PNACAC%'
+		or col2 like '%AACRAO%'
+		or col2 like '%BRILL ACADE%'
+		or col2 like '%SCHOLASTICA%'
+		or col2 like '%TAYLOR & FR%'
+		or col2 like '%U OREGON ON%'
+		or col2 like '%ACPA%' 
+		or col2 like '%AGB%'
+		or col2 like '%CAROLINA AC%'
+		or col2 like '%ETHICSGAME%'
+		or col2 like '%ETS*TOEFL S%'
+		or col2 like '%MODERN LANG%'
+		or col2 like '%OXFORD UNIV%' 
+		or col2 like '%MPACE%'
+		or col2 like '%ACADEMIC IM%'
+		or col2 like '%PSU CASHIER%' 
+		or col2 like '%AMERICAN BA%'
+		or col2 like '%NASPA-AUTHO%' 
+		or col2 like '%YOUTH WITH%'
+		or col2 like '%NTL COUNCL%'
+		or col2 like '%MPACE%'
+		then 'Academic'
+		else null end as academic 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not academic is null
+group by subset_case 
+
+
+-- Deep Dive on Initials Pattern (Count of Other Services in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%REPUBLIC SE%' 
+		or col2 like '%LIBRARY%' 
+		or col2 like '%PP*AMANDAST%'
+		or col2 like '%TLF OLSON F%'
+		or col2 like '%WF4WASBASSO%' 
+		or col2 like '%SOCIAL ENTE%' 
+		or col2 like '%SOCIETY OF%' 
+		or col2 like '%TEMPORARY D%' 
+		or col2 like '%DYNAMIC MED%'
+		or col2 like '%IN *FRONT R%'
+		or col2 like '%JCB CO LTD %'
+		or col2 like '%NALP -- AMS%'
+		or col2 like '%ANTON MAD A%'
+		or col2 like '%PCI*PATTERS%'
+		or col2 like '%TFS*FISHERS%'
+		or col2 like '%CTC*CONSTAN%' 
+		or col2 like '%THE AMERICA%' 
+		or col2 like '%AFFORDABLE%'  
+		or col2 like '%CASTLE BRAN%'
+		or col2 like '%NOR*NORTHER%'
+		or col2 like '%PLI*PRCTISN%'
+		or col2 like '%418-SMAC SA%'
+		or col2 like '%WILLIAM S H%' 
+		or col2 like '%GAN*1074STA%'
+		or col2 like '%XEROX CORPO%'
+		or col2 like '%SHRED-IT %'
+		or col2 like '%SIGMA ALDRI%'
+		or col2 like '%ANDERSON MC%'
+		or col2 like '%CARL B KLEA%'
+		or col2 like '%PHOTOVISION%'
+		or col2 like '%COASTWIDE L%'
+		or col2 like '%CAROLINA BI%'
+		or col2 like '%GREEN THUMB%'
+		or col2 like '%SONITROL PA%'
+		or col2 like '%U-HAUL OF S%'
+		or col2 like '%DEMCO INC %' 
+		or col2 like '%SALEM PAINT%'
+		or col2 like '%SEDCOR%'
+		or col2 like '%STAGE SPOT %'
+		or col2 like '%THE UPS STO%'
+		or col2 like '%USPS 407397%'
+		or col2 like '%ADY*SPOTIFY%'
+		or col2 like '%BANDON DUNE%'
+		or col2 like '%FURNITURE R%' 
+		or col2 like '%HOLLINGER M%'
+		or col2 like '%OREGON LIBR%'
+		or col2 like '%PRODUCTION %'
+		or col2 like '%SALEM BLUE %'
+		or col2 like '%USPS 407395%'
+		or col2 like '%VARIDESK%'
+		or col2 like '%VISTAPR*VIS%'
+		or col2 like '%CASE PARTS %'
+		or col2 like '%DUNIWAY STO%'
+		or col2 like '%GALLUP INC %'
+		or col2 like '%HAY GROUP I%' 
+		or col2 like '%KENTEK CORP%'
+		or col2 like '%PODS #51%'
+		or col2 like '%TED PELLA I%'
+		or col2 like '%THE SHUTTER%'
+		or col2 like '%COMMERCIAL%'
+		or col2 like '%B&H PHOTO%'
+		or col2 like '%GRADUATE MG%' 
+		or col2 like '%APL*APPLEON%'
+		then 'Other Services'
+		else null end as other_services 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not other_services is null
+group by subset_case 
+
+
+-- Deep Dive on Initials Pattern (Count of City in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%SOUTH SALEM%'
+		or col2 like '%WEST SALEM %'
+		or col2 like '%SALEM PERMI%'
+		or col2 like '%CITY OF EUG%'
+		or col2 like '%GHB - SALEM%'
+		or col2 like '%SALEM SPLAS%'
+		or col2 like '%WSBA%'
+		or col2 like '%GG *OREGON %'
+		or col2 like '%LOS ANGELES%'
+		or col2 like '%PORTLAND, O%'
+		then 'City'
+		else null end as city 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not city is null
+group by subset_case  
+
+
+-- Deep Dive on Initials Pattern (Count of Software in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%ADOBE *CREA%' 
+		or col2 like '%ADOBE *EXPO%'
+		or col2 like '%SURVEYMONKE%'
+		or col2 like '%SURVEYGIZMO%'
+		or col2 like '%WWW.5PMWEB.%'
+		then 'Software'
+		else null end as software 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not software is null
+group by subset_case  
+
+-- Deep Dive on Initials Pattern (Count of Online Resources in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%LYNDA.COM%' 
+		or col2 like '%QUARTZY.COM%'
+		or col2 like '%EMA*EMMA EM%'
+		or col2 like '%OJD OJIN ON%'
+		or col2 like '%TCD*TTA-RES%'
+		or col2 like '%CDW GOVERNM%'
+		or col2 like '%ETS*GRE SEA%'
+		or col2 like '%INREACH LLC%'
+		or col2 like '%MAVENLINK %'
+		or col2 like '%HIGHEREDJOB%'
+		or col2 like '%LEX*LEXIS N%'	
+		then 'Online Resources'
+		else null end as online_resources 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not online_resources is null
+group by subset_case  
+
+
+-- Deep Dive on Initials Pattern (Count of Newspaper in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%REGISTER GU%' 
+		or col2 like '%THE CHRONIC%'
+		or col2 like '%GAN*STATESM%'
+		or col2 like '%OREGONIAN P%'
+		or col2 like '%THE OREGONI%'
+		or col2 like '%D J*WALL ST%'
+		or col2 like '%HUDSONNEWS %'
+		then 'Newspaper'
+		else null end as newspaper 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not newspaper is null
+group by subset_case  
+
+
+-- Deep Dive on Initials Pattern (Count of Payments in col2) 
+
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'
+), 
+subset_split as
+(
+select descr
+	, split_part (descr, ';', 1) AS col1
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+),
+subset_case as
+(
+select 
+	case when col2 like '%AGNT FEE 8%'
+		or col2 like '%AGENT FEE 8%'
+		or col2 like '%BUDGET RENT%'
+		or col2 like '%REI*PAYMENT%'
+		or col2 like '%*FINANCE CH%'
+		or col2 like '%AUTOPAY/DIS%'
+		or col2 like '%PAYPAL *ORE%'
+		or col2 like '%SQ *GOSQ.CO%'
+		or col2 like '%INSURANCE P%'
+		or col2 like '%REI*MATTHEW%' 
+		or col2 like '%ASSOCIATION%' 
+		or col2 like '%FRAUD CREDI%'
+		then 'Payments'
+		else null end as payments 
+from subset_split 
+)
+select subset_case
+	, count (*)
+from subset_case 
+where not payments is null
+group by subset_case 

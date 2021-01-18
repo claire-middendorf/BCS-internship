@@ -1,0 +1,35 @@
+07/13/2020 
+
+I have found about 15 patterns in which I have filtered the raw budget data table. This accounts for about 35,000 of the 57,000 rows. Each of these classes need to be further divided because of their varied purchases and descriptions. There are also several miscellaneous cells that may need to be filtered through. 
+
+Patterns: Rows ascending 
+Initials (3) --- 24543 rows 
+SR/sr (1) --- 5612 rows 
+BonApp (7) --- 1754 rows 
+Year-End (8) --- 1805 rows  
+Print (15) --- 1274 rows 
+LLC (9) --- 756 rows 
+Four Digit (2) --- 368 rows 
+College/University (14) --- 193 rows 
+Sierra Springs (5) --- 189 rows 
+Shred-it (12) --- 119 rows 
+Plant Tender (4) --- 51 rows 
+Pepsi (10) --- 34 rows 
+Department (6) --- 24 rows 
+Canteen (11) --- 16 rows 
+
+
+07/28/2020 
+I removed the prefix pattern from the list above because my names pattern covers the prefixes. Found 23 patterns total. This accounts for 42432 of the 57556 rows. This is 75%. 
+
+08/03/2020 
+32 patterns found. 45041 out of 57556 = 78% 
+
+08/04/2020 
+Fixed overlap. 42632 out of 57556 = 74% 
+
+08/19/2020 
+45 patterns found. 45403 out of 57556 = 79%
+
+
+

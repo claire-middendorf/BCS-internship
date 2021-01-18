@@ -1,0 +1,293 @@
+7/7/2020 
+
+
+-- Pattern 4- Plant Tender
+select 
+	case when descr similar to '%Plant Tender%' then 'PT' 
+	else null end as PT_pattern
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Plant Tender%' 
+group by case when descr similar to '%Plant Tender%' then 'PT'
+		 else null end
+order by row_count desc
+limit 100;  
+
+
+-- Pattern 5- Sierra Springs
+select 
+	case when descr like '%Sierra Springs%' then 'Sierra Springs'
+		 when descr like '%sierra springs%' then 'Sierra Springs'
+		 else null end as pattern_ss
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%Sierra Springs%' 
+	or descr like '%sierra springs%'
+group by case when descr like '%Sierra Springs%' then 'Sierra Springs'
+		 when descr like '%sierra springs%' then 'Sierra Springs'
+		 else null end
+order by row_count desc
+limit 100; 
+
+
+-- Pattern 6- Department
+select 
+	case when descr like 'Dept%' then 'Department'
+		 else null end as pattern_Dept
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like 'Dept%' 
+group by case when descr like 'Dept%' then 'Department'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 7- Bon App
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%BonApp%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%'
+order by 1
+limit 500;  
+
+
+-- Pattern 7- Bon App (count)
+select 
+	case when descr like '%BonApp%' then 'BonApp' 
+		when descr like '%BONAPP%' then 'BonApp'
+		 else null end as pattern_bonapp
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%BonApp%' 
+		or descr like '%BONAPP%'
+group by case when descr like '%BonApp%' then 'BonApp'
+			when descr like '%BONAPP%' then 'BonApp'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 8- Year-End (count)
+select 
+	case when descr like '%Year-End%' then 'Year-End'
+		 when descr like '%year-end%' then 'Year-End'
+		 else null end as pattern_ss
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%Year-End%' 
+	or descr like '%year-end%'
+group by case when descr like '%Year-End%' then 'Year-End'
+		 when descr like '%year-end%' then 'Year-End'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 8- Year-End (count)
+select 
+	case when descr similar to '%Year-End%' then 'Year-End'
+		 when descr similar to '%year-end%' then 'Year-End' 
+		 when descr similar to '%YE%' then 'Year-End'
+		 else null end as pattern_YE
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Year-End%' 
+	or descr similar to '%year-end%' 
+	or descr similar to '%YE%'
+group by case when descr similar to '%Year-End%' then 'Year-End'
+		 when descr similar to '%year-end%' then 'Year-End' 
+		 when descr similar to '%YE%' then 'Year-End'
+		 else null end
+order by row_count desc
+limit 100;  
+
+--1805 rows
+
+-- Pattern 9- LLC
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%LLC%'
+order by 1
+limit 500;  
+
+
+-- Pattern 9- LLC (count)
+select 
+	case when descr like '%LLC%' then 'LLC'
+		 else null end as pattern_ss
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%LLC%' 
+group by case when descr like '%LLC%' then 'LLC'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 10- Pepsi
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%Pepsi%' 
+order by 1
+limit 500;
+
+-- Pattern 10- Pepsi
+select 
+	case when descr like '%Pepsi%' then 'Pepsi'
+		 else null end as pattern_ss
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%Pepsi%' 
+group by case when descr like '%Pepsi%' then 'Pepsi'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 11- Canteen
+select 
+	case when descr like '%Canteen%' then 'Canteen' 
+		 else null end as pattern_canteen
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%Canteen%' 
+	and not descr like '%Pepsi%'
+group by case when descr like '%Canteen%' then 'Canteen'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 12- Shred It
+select descr 
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%SHRED-IT%' 
+	or descr like '%Shred-it%'
+group by descr
+order by row_count desc
+limit 100; 
+
+-- Pattern 12- Shred It (count) 
+select 
+	case when descr similar to '%SHRED-IT%' then 'Shred-it'
+		 when descr similar to '%Shred-it%' then 'Shred-it'
+		 else null end as pattern_ss
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%SHRED-IT%' 
+	or descr similar to '%Shred-it%'
+group by case when descr similar to '%SHRED-IT%' then 'Shred-it'
+		 when descr similar to '%Shred-it%' then 'Shred-it'
+		 else null end
+order by row_count desc
+limit 100;   
+
+
+7/9/2020 
+
+-- Pattern 13- Prefixes
+select distinct descr
+from dev.budget_staging 
+where descr similar to 'Mrs%' 
+	or descr similar to 'Mr%' 
+	or descr similar to 'Dr%' 
+	or descr similar to 'Ms%'
+order by 1
+limit 500; 
+
+-- Pattern 13- Prefixes (count)
+select 
+	case when descr similar to 'Mrs.%' then 'Mrs'
+		 when descr similar to 'Mr.%' then 'Mr' 
+		 when descr similar to 'Dr.%' then 'Dr' 
+		 when descr similar to 'Ms.%' then 'Ms'
+		 else null end as pattern_prefix
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to 'Mrs.%' 
+		 or descr similar to 'Mr.%' 
+		 or descr similar to 'Dr.%' 
+		 or descr similar to 'Ms.%' 
+group by case when descr similar to 'Mrs.%' then 'Mrs'
+		 when descr similar to 'Mr.%' then 'Mr' 
+		 when descr similar to 'Dr.%' then 'Dr' 
+		 when descr similar to 'Ms.%' then 'Ms'
+		 else null end
+order by row_count desc
+limit 100; 
+
+
+7/13/2020 
+
+--Pattern 14- Universities and Colleges and College Fairs
+select distinct descr
+from dev.budget_staging 
+where 1=1
+	and (descr like '%University%' 
+	or descr like '%university%' 
+	or descr like '%College%' 
+	or descr like '%college%')
+	and not descr similar to '[A-Z]{3};%'  
+order by 1
+limit 500; 
+
+--Pattern 14- Universities and Colleges and College Fairs (count)
+select 
+	case when descr like '%University%' 
+	or descr like '%university%'
+	or descr like '%College%' 
+	or descr like '%college%'
+	and not descr similar to '[A-Z]{3};%' then 'College or University'
+	else null end as pattern_college
+	, count(*) as row_count 
+from dev.budget_staging 
+where 1=1
+	and (descr like '%University%' 
+	or descr like '%university%' 
+	or descr like '%College%' 
+	or descr like '%college%')
+	and not descr similar to '[A-Z]{3};%' 
+group by case when descr like '%University%' 
+	or descr like '%university%'
+	or descr like '%College%' 
+	or descr like '%college%'
+	and not descr similar to '[A-Z]{3};%' then 'College or University'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 15- Print  
+select distinct descr
+from dev.budget_staging 
+where 1=1 
+	and (descr like '%Print%' 
+	or descr like '%print%' 
+	or descr like '%printing%')  
+	and not descr similar to '[A-Z]{3};%'
+order by 1
+limit 500; 
+
+-- Pattern 15- Print (count)
+select 
+	case when descr like '%Print%' 
+	or descr like '%print%' 
+	or descr like '%printing%' 
+	and not descr similar to '[A-Z]{3};%' then 'Print'
+	else null end as pattern_print
+	, count(*) as row_count 
+from dev.budget_staging 
+where 1=1
+	and (descr like '%Print%' 
+	or descr like '%print%' 
+	or descr like '%printing%')  
+	and not descr similar to '[A-Z]{3};%' 
+group by case when descr like '%Print%' 
+	or descr like '%print%' 
+	or descr like '%printing%' 
+	and not descr similar to '[A-Z]{3};%' then 'Print'
+		 else null end
+order by row_count desc
+limit 100; 
+
+
+
+
+
+

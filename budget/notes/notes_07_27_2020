@@ -1,0 +1,81 @@
+--07/27/2020
+
+
+-- Pattern 16- Dept. of Administrative Services
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%Dept. of Administrative Services%' 
+order by 1
+limit 500;  
+
+-- Pattern 16- Dept. of Administrative Services (count)
+select 
+	case when descr similar to'%Dept. of Administrative Services%' then 'Dept. of Administrative Services' 
+	else null end as PCARD_pattern
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Dept. of Administrative Services%' 
+group by case when descr similar to '%Dept. of Administrative Services%' then 'Dept. of Administrative Services'
+		 else null end
+order by row_count desc
+limit 100;  
+
+-- Pattern 17- Lile International Companies
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%Lile International Companies%' 
+order by 1
+limit 500;  
+
+--24 rows
+
+-- Pattern 18- Stanley Convergent Security Solutions (count)
+select 
+	case when descr similar to'%Stanley Convergent Security Solutions%' then 'Stanley Convergent Security Solutions' 
+	else null end as PCARD_pattern
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Stanley Convergent Security Solutions%' 
+group by case when descr similar to '%Stanley Convergent Security Solutions%' then 'Stanley Convergent Security Solutions'
+		 else null end
+order by row_count desc
+limit 100;  
+--46 rows
+
+
+-- Pattern 19- Inc
+select distinct descr
+from dev.budget_staging 
+where descr similar to '%Inc%' 
+order by 1
+limit 500;  
+
+--1692 rows
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

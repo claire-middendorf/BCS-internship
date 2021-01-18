@@ -1,0 +1,34 @@
+08/03/2020 
+
+--SR (1)
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%BONAPP%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%SR%' 
+	or descr similar to '%sr%' 
+	or descr similar to 'SR%' 
+	or descr similar to 'sr%' 
+	
+

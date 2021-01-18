@@ -1,0 +1,116 @@
+7/5/2020 
+
+
+-- Starter Query
+select distinct descr 
+from dev.budget_staging 
+order by descr
+limit 100;  
+
+
+-- Deep Dive on Snyder
+select descr 
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%Snyder%' 
+group by descr
+order by row_count desc
+limit 100; 
+
+
+-- Deep Dive on SR/sr pattern
+select descr 
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like 'SR%' 
+	or descr like 'sr%'
+group by descr
+order by row_count desc
+limit 100; 
+
+-- Count of SR/sr pattern
+select 
+	case when descr like '%SR%' then 'SR pattern'
+		 when descr like '%sr%' then 'sr pattern'
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr like '%SR%' 
+	or descr like '%sr%'
+group by case when descr like '%SR%' then 'SR pattern'
+		 when descr like '%sr%' then 'sr pattern'
+		 else null end
+order by row_count desc
+limit 100; 
+
+--5612 rows
+
+-- Pattern 2 - vendor 4 digit codes
+select distinct descr
+from dev.budget_staging 
+where descr similar to '[0-9]{4}%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%'
+order by 1
+limit 500;  
+
+
+
+7/6/2020
+
+
+-- Pattern 2 - vendor 4 digit codes (no years)
+select distinct descr
+from dev.budget_staging 
+where descr similar to '[0-9]{4}%' 
+	and not descr like '20%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%'
+order by 1
+limit 500;  
+
+-- Pattern 2 - vendor 4 digit codes (no years) (count)
+select 
+	case when descr similar to '[0-9]{4}%' 
+	and not descr like '20%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%' then 'Four Digit'
+		 else null end as pattern_fourdigit
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '[0-9]{4}%' 
+	and not descr like '20%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%'
+group by case when descr similar to '[0-9]{4}%' 
+	and not descr like '20%'
+	and not descr like 'SR%' 
+	and not descr like 'sr%' then 'Four Digit'
+		 else null end
+order by row_count desc
+limit 100; 
+
+-- Pattern 3- Initials
+select distinct descr
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%' 
+order by 1
+limit 500;  
+
+-- Pattern 3- Initials (count)
+select 
+	case when descr similar to'[A-Z]{3};%' then 'PCARD' 
+	else null end as PCARD_pattern
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%' 
+group by case when descr similar to '[A-Z]{3};%' then 'PCARD'
+		 else null end
+order by row_count desc
+limit 100;  
+
+
+
+
+
+
+

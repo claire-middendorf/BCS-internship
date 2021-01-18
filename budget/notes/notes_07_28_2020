@@ -1,0 +1,310 @@
+--07/28/2020
+
+
+
+--Pattern 20- Name Pattern 
+
+with test as
+(
+	select 'Jeani M. Bragg' as test_col 
+	union all
+	select 'Jeani M Bragg' as test_col
+)
+select distinct test_col
+from test 
+where test_col similar to '% [A-Z]{1}. %'  
+--or test_col similar to '% [A-Z]{1} %'
+limit 100
+
+--Names 
+
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr
+from subset 
+where descr similar to '% [A-Z]{1}. %' 
+		or descr similar to '% [A-Z]{1} % ' 
+		
+
+--Pattern 20- Names (count)
+
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '% [A-Z]{1}. %'  then 'Name' 
+		when descr similar to '% [A-Z]{1} % ' then 'Name'
+		 else null end as pattern_name
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '% [A-Z]{1}. %'  
+		or descr similar to '% [A-Z]{1} % '
+group by case when descr similar to '% [A-Z]{1}. %'  then 'Name'
+			when descr similar to '% [A-Z]{1} % ' then 'Name'
+		 else null end
+order by row_count desc
+
+--2837 rows
+
+--Pattern 21- Security Pattern 
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%Security%' 
+
+--Pattern 21- Security Pattern (count) 
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Security%'  then 'Security' 
+		 else null end as pattern_OD
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Security%'  
+group by case when descr similar to '%Security%'  then 'Security'
+		 else null end
+order by row_count desc
+
+--138 rows
+
+--Pattern 22- Opening Day 
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%Opening Days%' 
+		or descr similar to '%OD %' 
+		
+--Pattern 22- Opening Day (count)
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Opening Days%'  then 'Opening Day' 
+		when descr similar to '%OD %' then 'Opening Day'
+		 else null end as pattern_OD
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Opening Days%'  
+		or descr similar to '%OD %'
+group by case when descr similar to '%Opening Days%'  then 'Opening Day'
+			when descr similar to '%OD %' then 'Opening Day'
+		 else null end
+order by row_count desc		
+
+--134  rows
+
+--Pattern 23- Motor Pool (count) 
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Motor Pool%'  then 'Motor Pool' 
+		 else null end as pattern_motorpool
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Motor Pool%'  
+group by case when descr similar to '%Motor Pool%'  then 'Motor Pool'
+		 else null end
+order by row_count desc 
+
+--177 rows
+
+--Pattern 24- Sys Tracking id (count)
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Sys tracking id%'  then 'Sys tracking id' 
+		 else null end as pattern_Systrackingid
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%Sys tracking id%'  
+group by case when descr similar to '%Sys tracking id%'  then 'Sys tracking id'
+		 else null end
+order by row_count desc
+
+--645 rows
+
+-- pattern 25- Allocation (count)
+select 
+	case when descr similar to '%allocation%' then 'allocation' 
+		when descr similar to '%allocate%' then 'allocation'
+	else null end as allocation_pattern
+	, count(*) as row_count 
+from dev.budget_staging 
+where descr similar to '%allocation%'  
+	or descr similar to '%allocate%'
+group by case when descr similar to '%allocation%' then 'allocation' 
+			when descr similar to '%allocate%' then 'allocation'
+		 else null end
+order by row_count desc
+limit 100;  
+
+-- 67 rows
+

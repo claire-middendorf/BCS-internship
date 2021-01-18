@@ -1,0 +1,320 @@
+--08/03/2020 
+
+--Pattern 26- Xerox Pattern (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Xerox%'  then 'Xerox' 
+	else null end as pattern_Xerox
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Xerox%'  
+group by case when descr similar to '%Xerox%'  then 'Xerox'
+	else null end
+order by row_count desc 
+
+-- 1458 rows 
+
+--Pattern 27- Campus Safety Pattern (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Campus Safety%'  then 'Campus Safety' 
+	else null end as pattern_campussafety
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Campus Safety%'  
+group by case when descr similar to '%Campus Safety%'  then 'Campus Safety'
+	else null end
+order by row_count desc  
+
+-- 253 rows 
+
+--Pattern 28- Id Card Replacement Pattern (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Id Card Replacement%'  then 'Id Card Replacement' 
+	else null end as pattern_id
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Id Card Replacement%'  
+group by case when descr similar to '%Id Card Replacement%'  then 'Id Card Replacement'
+	else null end
+order by row_count desc  
+
+-- 18 rows 
+
+--Pattern 29- Stationery (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Stationery%'  then 'Stationery' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Stationery%'  
+group by case when descr similar to '%Stationery%'  then 'Stationery'
+	else null end
+order by row_count desc  
+
+-- 288 rows 
+
+--Pattern 30- Paper (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%'  
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Paper%'  then 'Paper' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Paper%'  
+group by case when descr similar to '%Paper%'  then 'Paper'
+	else null end
+order by row_count desc  
+
+-- 313 rows
+
+--Pattern 31- Candy (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%Candy%'  
+
+--Pattern 31- Candy (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Candy%'  then 'Candy' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Candy%'  
+group by case when descr similar to '%Candy%'  then 'Candy'
+	else null end
+order by row_count desc  
+
+-- 30 rows 
+
+--Pattern 32- PCARD  ?
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select descr 
+from subset 
+where descr similar to '%Pcard%' 
+	or descr similar to '%P-Card%'  
+	
+--Pattern 33- Arlington Club (count) 
+with subset as
+(
+select descr 
+from dev.budget_staging 
+where descr not similar to '[A-Z]{3};%' 
+		and descr not similar to '% [A-Z]{1}. %'
+		and descr not similar to 'SR%' 
+		and descr not similar to 'sr%'
+		and descr not similar to '[0-9]{4}%'
+		and descr not similar to '%Plant Tender%'
+		and descr not similar to '%Sierra Springs%'
+		and descr not similar to '%sierra springs%'
+		and descr not similar to '%BonApp%'
+		and descr not similar to '%Year-End%'
+		and descr not similar to '%LLC%' 
+		and descr not similar to '%Pepsi%'
+		and descr not similar to '%Canteen%'
+		and descr not similar to '%Shred-it%'
+		and descr not similar to '%University%'
+		and descr not similar to '%College%'
+		and descr not similar to '%Print%'
+		and descr not similar to '%print%' 
+		and descr not similar to 'Dept%'
+) 
+select 
+	case when descr similar to '%Arlington Club%'  then 'Arlington Club' 
+	else null end as pattern_OD
+	, count(*) as row_count 
+from subset 
+where descr similar to '%Arlington Club%'  
+group by case when descr similar to '%Arlington Club%'  then 'Arlington Club'
+	else null end
+order by row_count desc   
+
+-- 60 rows
+

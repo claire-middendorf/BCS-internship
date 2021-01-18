@@ -1,0 +1,39 @@
+--Status Report #1 7/19/2020
+
+Process 
+The problem at hand is a NLP (natural language processing) problem. The text in the description field in the budget data set is very inconsistent and needs to be parsed through for patterns and similarities in order to be able to effectively analyze the budget. In order to filter through this large and complicated field, I switched from using a sheets-based technology to a database solution (postgres). By using this technology I have more functionality to better parse through the data. I am continually teaching myself SQL to complete this task.  
+To find patterns within the description field I first scanned the budget data set for any patterns I could see. I would then use an SQL query to filter through the field to count how many cells fit into the pattern. I have currently found 15 patterns that account for about 35,000 of the 57,000 rows.
+
+Deep dive: Initials Pattern 
+The pattern that accounted for the most rows, 24,543 rows to be exact, was the Initials pattern. In the dataset, this pattern is displayed as three capitol letters, a semicolon, the name of the vendor, a semicolon, and a description of what was bought. To further analyze this pattern, I first split the cell's content into three columns. Column 1 was the three capitol letters, column 2 was the name of the vendor, and column three was the description of what was bought. 
+
+-- Deep Dive on Initials Pattern (split into columns) 
+Below is a snippet code that shows how I split the Initials pattern into three columns 
+
+with subset as
+(
+select distinct descr 
+from dev.budget_staging 
+where descr similar to '[A-Z]{3};%'  -- This grabs the Initials pattern
+)
+select descr
+     , split_part (descr, ';', 1) AS col1  -- This parses the column by a semicolon
+     , split_part (descr, ';', 2) AS col2
+     , split_part (descr, ';', 3) AS col3 
+from subset
+order by 1 
+
+I decided to focus on filtering column 2, the names of the vendors, because where an item was bought gives insight to what was bought. So, I had to find patterns within column 2 of the Initials pattern. 
+One pattern I found within column 2 was multiple vendors that fit in the Commercial Food Service sector. I found these vendors with human classification by looking through the list of names in column 2. Commercial Food Services account for 34% of the vendors in the Initials pattern. 
+
+Next Steps 
+The next short-term goal is to find the bredth of the description field and the depth of the Initials pattern. By bredth I mean to find all of the overarching patterns within the description field to account for all 57,000 rows. And by depth I mean to account for all the rows within the Initials pattern by spliting it into even more, smaller groups.  
+
+
+
+
+
+
+
+
+

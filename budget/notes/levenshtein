@@ -1,0 +1,38 @@
+
+
+with test as
+(
+	select descr
+	from dev.budget_staging
+	where descr like '%Inc.%'
+	order by 1
+	limit 10
+), test2 as 
+(
+	select descr
+	from dev.budget_staging
+	where descr like '%Inc.%'
+	order by 1
+	limit 10
+)
+select test.descr
+    , test2.descr
+    , levenshtein(test.descr, test2.descr) as levenshtein_dis
+from test
+cross join test2
+order by 3
+
+
+with test as
+(
+	select 'Jeani M. Bragg' as test_case
+)
+select distinct bs.descr
+	, test.test_case
+	, levenshtein(descr, test.test_case) as levenshtein_dis
+from dev.budget_staging as bs 
+cross join test
+where bs.descr not like '%Inc.%'
+order by 3
+limit 100 
+
