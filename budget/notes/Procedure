@@ -1,6 +1,6 @@
 08/23/2020 
 
-Willamette Budget Data Analysis Project 
+**** Budget Data Analysis Project 
 
 I was given a data set which contained all transactions between 2015 and 2016. There was a total of about 57,000 rows. I was asked to analyze the description field. 
 The problem was a NLP (natural language processing) problem. The text in the description field in the budget data set is very inconsistent and needs to be parsed through for patterns and similarities in order to be able to effectively analyze the budget. To filter through this large and complicated field, I switched from using a sheets-based technology to a database solution (postgres). By using this technology I had more functionality to better parse through the data.  
